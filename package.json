@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/lailapfit/task-tracker-api/issues"
   },
-  "homepage": "https://github.com/lailapfit/task-tracker-api#readme"
+  "homepage": "https://github.com/lailapfit/task-tracker-api#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
