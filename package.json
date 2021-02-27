@@ -1,0 +1,19 @@
+{
+  "name": "task-tracker-api",
+  "version": "1.0.0",
+  "description": "Task tracker API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lailapfit/task-tracker-api.git"
+  },
+  "author": "Laila Fitriana",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lailapfit/task-tracker-api/issues"
+  },
+  "homepage": "https://github.com/lailapfit/task-tracker-api#readme"
+}
