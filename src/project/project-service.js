@@ -1,5 +1,5 @@
 const ProjectService = {
-    getAllProject(knex) {
+    getAllProjects(knex) {
         return knex.select('*').from('projects');
     },
     getProjectByName(knex, name) {
