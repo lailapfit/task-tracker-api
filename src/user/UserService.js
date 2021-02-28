@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const { SECRET } = require('../config');
 
@@ -29,17 +28,6 @@ const User = {
                 } else {
                     console.log('hashPassword hash: ' + hash);
                     resolve(hash);
-                }
-            })
-        })
-    },
-    createToken() {
-        return new Promise((resolve, reject) => {
-            crypto.randomBytes(16, (err, data) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(data);
                 }
             })
         })
