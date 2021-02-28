@@ -1,4 +1,7 @@
 const CustomerService = {
+    getAllCustomers(knex) {
+        return knex.select('*').from('customers');
+    },
     getCustomerByName(knex, name) {
         return knex.select('*').from('customers').first().where({ name: `${name}`});
     },
