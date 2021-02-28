@@ -2,11 +2,11 @@ const TaskLogService = {
     getAllTaskLogs(knex) {
         return knex.select('*').from('task_logs');
     },
-    getTaskById(knex, id) {
+    getTaskLogById(knex, id) {
         return knex.select('*').from('task_logs').first().where({ id: `${id}`});
     },
-    getTaskLogsByProjectId(knex, projectId) {
-        return knex.select('*').from('task_logs').where({ project_id: `${projectId}`});
+    getTaskLogsByTaskId(knex, taskId) {
+        return knex.select('*').from('task_logs').where({ task_id: `${taskId}`});
     },
     getTaskLogsByUserId(knex, userId) {
         return knex.select('*').from('task_logs').where({ user_id: `${userId}`});

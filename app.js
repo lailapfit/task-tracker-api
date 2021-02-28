@@ -8,6 +8,7 @@ const customerRouter = require('./src/customer/customer-router');
 const projectRouter = require('./src/project/project-router');
 const taskRouter = require('./src/task/task-router');
 const userRouter = require('./src/user/user-router');
+const taskLogRouter = require('./src/task-log/task-log-router');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use('/customer', customerRouter);
 app.use('/project', projectRouter);
 app.use('/task', taskRouter);
 app.use('/user', userRouter);
+app.use('/task-log', taskLogRouter);
 
 app.get('/', (req, res) => {
     res.send('TASK TRACKER API v1.1.3');
