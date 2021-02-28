@@ -1,6 +1,3 @@
-//.join('contacts', 'users.id', '=', 'contacts.user_id')
-
-
 const TaskLogService = {
     getAllTaskLogs(knex) {
         return knex.select(knex.raw('task_logs.id AS task_log_id, task_logs.task_id, tasks.description AS task_description, users.id AS user_id, users.email AS user_email, task_logs.duration_minutes, tasks.project_id, projects.name AS project_name'))
