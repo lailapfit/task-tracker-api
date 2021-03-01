@@ -12,10 +12,10 @@ const CustomerService = {
         return knex('customers').returning('id').insert({ name: `${name}`});
     },
     updateCustomerByName(knex, name, data) {
-        return knex('customers').where({ name: `${name}`}).update({ name: `${data}`}, ['id', 'name']);
+        return knex('customers').where({ name: `${name}`}).update({ name: `${data.name}`}, ['id', 'name']);
     },
     updateCustomerById(knex, id, data) {
-        return knex('customers').where({ id: `${id}`}).update({ name: `${data}`}, ['id', 'name']);
+        return knex('customers').where({ id: `${id}`}).update({ name: `${data.name}`}, ['id', 'name']);
     },
     deleteCustomerByName(knex, name) {
         return knex('customers').where({ name: `${name}`}).del();
