@@ -13,6 +13,20 @@ projectRouter
         return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
     })
 })
+.post((req, res) => {
+    Project.createProject(req.app.get('db'), req.body)
+    .then(project => {
+        if (!project) {
+            return res.status(404).json({
+                error: {message: 'Project cannot be created'}
+            });
+        }
+        res.json({ project_id: project });
+    })
+    .catch(err => {
+        return res.status(500).json({error: {message: err, detail: 'createProject'}});
+    })
+})
 
 projectRouter
 .route('/id/:id')
@@ -28,7 +42,7 @@ projectRouter
 
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'getProjectById'}});
     })
 })
 .put((req, res) => {
@@ -42,7 +56,7 @@ projectRouter
         res.json(project);
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'updateProjectById'}});
     })
 })
 .delete((req, res) => {
@@ -50,13 +64,13 @@ projectRouter
     .then(project => {
         if (!project) {
             return res.status(404).json({
-                error: {message: 'Project cannot be updated'}
+                error: {message: 'Project cannot be deleted'}
             });
         }
         res.status(200).send('Project successfully deleted');
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'deleteProjectById'}});
     })
 })
 
@@ -74,11 +88,11 @@ projectRouter
 
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'getProjectByName'}});
     })
 })
 .put((req, res) => {
-    Project.updateProjectByName(req.app.get('db'), req.params.id, req.body)
+    Project.updateProjectByName(req.app.get('db'), req.params.name, req.body)
     .then(project => {
         if (!project) {
             return res.status(404).json({
@@ -88,21 +102,21 @@ projectRouter
         res.json(project);
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'updateProjectByName'}});
     })
 })
 .delete((req, res) => {
-    Project.deleteProjectByName(req.app.get('db'), req.params.id)
+    Project.deleteProjectByName(req.app.get('db'), req.params.name)
     .then(project => {
         if (!project) {
             return res.status(404).json({
-                error: {message: 'Project cannot be updated'}
+                error: {message: 'Project cannot be deleted'}
             });
         }
         res.status(200).send('Project successfully deleted');
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllProjects'}});
+        return res.status(500).json({error: {message: err, detail: 'deleteProjectByName'}});
     })
 })
 

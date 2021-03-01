@@ -18,14 +18,14 @@ const ProjectService = {
         .innerJoin('customers', 'customers.id', '=', 'projects.customer_id')
         .where('projects.id', '=', id);
     },
-    createProject(knex, name) {
-        return knex('projects').returning('id').insert({ name: `${name}`});
+    createProject(knex, data) {
+        return knex('projects').returning('id').insert(data);
     },
     updateProjectByName(knex, name, data) {
-        return knex('projects').where({ name: `${name}`}).update({ name: `${data}`}, ['id', 'name']);
+        return knex('projects').where({ name: `${name}`}).update(data, ['id', 'name']);
     },
     updateProjectById(knex, id, data) {
-        return knex('projects').where({ id: `${id}`}).update({ name: `${data}`}, ['id', 'name']);
+        return knex('projects').where({ id: `${id}`}).update(data, ['id', 'name']);
     },
     deleteProjectByName(knex, name) {
         return knex('projects').where({ name: `${name}`}).del();
