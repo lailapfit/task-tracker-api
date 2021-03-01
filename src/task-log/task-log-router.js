@@ -13,6 +13,20 @@ taskLogRouter
         return res.status(500).json({error: {message: err, detail: 'getAllTaskLogs'}});
     })
 })
+.post((req, res) => {
+    TaskLog.createTaskLog(req.app.get('db'), req.body)
+    .then(taskLog => {
+        if (!taskLog) {
+            return res.status(404).json({
+                error: {message: 'Task log cannot be created'}
+            });
+        }
+        res.json({ task_id: taskLog });
+    })
+    .catch(err => {
+        return res.status(500).json({error: {message: err, detail: 'createTaskLog'}});
+    })
+})
 
 taskLogRouter
 .route('/id/:id')
@@ -25,7 +39,6 @@ taskLogRouter
             });
         }
         res.json(taskLog);
-
     })
     .catch(err => {
         return res.status(500).json({error: {message: err, detail: 'getTaskLogById'}});
