@@ -1,6 +1,36 @@
 const express = require('express');
 const userRouter = express.Router();
-const User = require('./UserService');
+const User = require('./user-service');
+
+userRouter
+.route('/')
+.get((req, res) => {
+    User.getAllUsers(req.app.get('db'))
+    .then(users => {
+        if (!users) {
+            return res.status(404).json({ error: {message: 'Users not found'}});
+        }
+        res.json(users);
+    })
+    .catch(err => {
+        return res.status(500).json({error: {message: err, detail: 'getUser'}});
+    })
+})
+
+userRouter
+.route('/id/:id')
+.get((req, res) => {
+    User.getUserById(req.app.get('db'), req.params.id)
+    .then(user => {
+        if (!user) {
+            return res.status(404).json({ error: {message: 'User cannot be found'}});
+        }
+        res.json(user);
+    })
+    .catch(err => {
+        return res.status(500).json({error: {message: err, detail: 'getUserById'}});
+    })
+})
 
 userRouter
 .route('/login')
@@ -10,8 +40,6 @@ userRouter
         if (!user) {
             return res.status(404).json({ error: {message: 'User not found'}});
         }
-        console.log('getUser user: ' + JSON.stringify(user));
-
         User.checkPassword(req.body.password, user.password)
         .then(password => {
             if (!password) {

@@ -3,6 +3,15 @@ const jwt = require('jsonwebtoken');
 const { SECRET } = require('../config');
 
 const User = {
+    getAllUsers(knex) {
+        return knex.select('id', 'email').from('users');
+    },
+    getUser(knex, email) {
+        return knex.select('*').from('users').first().where({ email: `${email}`})
+    },
+    getUserById(knex, id) {
+        return knex.select('*').from('users').where({ id: `${id}`})
+    },
     createUser(knex, email, password) {
         return knex('users').returning('id').insert({ email: `${email}`, password: `${password}`});
     },
@@ -32,12 +41,6 @@ const User = {
             })
         })
     },
-    getUser(knex, email) {
-        return knex.select('*').from('users').first().where({ email: `${email}`})
-    },
-    getUserById(knex, id) {
-        return knex.select('*').from('users').where({ id: `${id}`})
-    },
     checkPassword(password, userPassword) {
         return new Promise((resolve, reject) => {
             bcrypt.compare(password, userPassword, (err, data) => {
@@ -57,15 +60,6 @@ const User = {
             expiresIn: 86400 //24hrs
         });
         return knex('users').where({ id: `${id}`}).update({ token: `${token}`}, ['id', 'email'])
-    },
-    authenticate(knex, user) {
-        this.getToken(knex, user)
-        .then(userLogin => {
-            userLogin.email === user.email ? true : false;
-        })
-    },
-    getToken(knex, token) {
-        return knex.select('*').from('users').where({ token: `${token}`});
     }
 }
 
