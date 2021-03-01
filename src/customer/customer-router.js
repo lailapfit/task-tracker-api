@@ -13,6 +13,20 @@ customerRouter
         return res.status(500).json({error: {message: err, detail: 'getAllCustomers'}});
     })
 })
+.post((req, res) => {
+    Customer.createCustomer(req.app.get('db'), req.body)
+    .then(customer => {
+        if (!customer) {
+            return res.status(404).json({
+                error: {message: 'Customer cannot be created'}
+            });
+        }
+        res.json({customer_id: customer});
+    })
+    .catch(err => {
+        return res.status(500).json({error: {message: err, detail: 'createCustomer'}});
+    })
+})
 
 customerRouter
 .route('/id/:id')
@@ -78,7 +92,7 @@ customerRouter
     })
 })
 .put((req, res) => {
-    Customer.updateCustomerByName(req.app.get('db'), req.params.id, req.body)
+    Customer.updateCustomerByName(req.app.get('db'), req.params.name, req.body)
     .then(customer => {
         if (!customer) {
             return res.status(404).json({
@@ -92,7 +106,7 @@ customerRouter
     })
 })
 .delete((req, res) => {
-    Customer.deleteCustomerByName(req.app.get('db'), req.params.id)
+    Customer.deleteCustomerByName(req.app.get('db'), req.params.name)
     .then(customer => {
         if (!customer) {
             return res.status(404).json({
@@ -102,7 +116,7 @@ customerRouter
         res.status(200).send('Customer successfully deleted');
     })
     .catch(err => {
-        return res.status(500).json({error: {message: err, detail: 'getAllCustomers'}});
+        return res.status(500).json({error: {message: err, detail: 'deleteCustomerByName'}});
     })
 })
 
