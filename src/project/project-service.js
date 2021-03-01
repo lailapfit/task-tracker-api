@@ -1,12 +1,22 @@
 const ProjectService = {
     getAllProjects(knex) {
-        return knex.select('*').from('projects');
+        return knex.select(knex.raw('projects.id AS project_id, projects.name AS project_name, customers.id AS customer_id, customers.name AS customer_name'))
+        .from('projects')
+        .innerJoin('customers', 'customers.id', '=', 'projects.customer_id');
     },
     getProjectByName(knex, name) {
-        return knex.select('*').from('projects').first().where({ name: `${name}`});
+        return knex.select(knex.raw('projects.id AS project_id, projects.name AS project_name, customers.id AS customer_id, customers.name AS customer_name'))
+        .from('projects')
+        .first()
+        .innerJoin('customers', 'customers.id', '=', 'projects.customer_id')
+        .where('projects.name', '=', name);
     },
     getProjectById(knex, id) {
-        return knex.select('*').from('projects').first().where({ id: `${id}`});
+        return knex.select(knex.raw('projects.id AS project_id, projects.name AS project_name, customers.id AS customer_id, customers.name AS customer_name'))
+        .from('projects')
+        .first()
+        .innerJoin('customers', 'customers.id', '=', 'projects.customer_id')
+        .where('projects.id', '=', id);
     },
     createProject(knex, name) {
         return knex('projects').returning('id').insert({ name: `${name}`});
