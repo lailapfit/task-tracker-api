@@ -2,6 +2,7 @@ require('dotenv').config({path: __dirname + '/.env'});
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 //routes
 const customerRouter = require('./src/customer/customer-router');
@@ -15,6 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 
 app.use('/customer', customerRouter);
 app.use('/project', projectRouter);

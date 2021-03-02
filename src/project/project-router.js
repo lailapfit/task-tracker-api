@@ -5,6 +5,8 @@ const Project = require('./project-service');
 projectRouter
 .route('/')
 .get((req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+
     Project.getAllProjects(req.app.get('db'))
     .then(projects => {
         res.json(projects);
@@ -14,6 +16,8 @@ projectRouter
     })
 })
 .post((req, res) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    
     Project.createProject(req.app.get('db'), req.body)
     .then(project => {
         if (!project) {
