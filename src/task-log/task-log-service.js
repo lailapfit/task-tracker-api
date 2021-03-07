@@ -32,10 +32,10 @@ const TaskLogService = {
         .where('user_id', '=', userId);
     },
     createTaskLog(knex, data) {
-        return knex('task_logs').returning('id').insert(data);
+        return knex('task_logs').returning('*').insert(data);
     },
     updateTaskLogById(knex, id, data) {
-        return knex('task_logs').where({ id: `${id}`}).update(data, ['id', 'task_id', 'user_id', 'duration_minutes']);
+        return knex('task_logs').where({ id: `${id}`}).update(data, ['id', 'task_id', 'user_id', 'duration_minutes', 'start_time', 'end_time']);
     },
     deleteTaskLogById(knex, id) {
         return knex('task_logs').where({ id: `${id}`}).del();

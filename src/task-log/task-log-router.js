@@ -21,7 +21,7 @@ taskLogRouter
                 error: {message: 'Task log cannot be created'}
             });
         }
-        res.json({ task_id: taskLog });
+        res.json(taskLog);
     })
     .catch(err => {
         return res.status(500).json({error: {message: err, detail: 'createTaskLog'}});

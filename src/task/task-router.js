@@ -21,7 +21,7 @@ taskRouter
                 error: {message: 'Task cannot be created'}
             });
         }
-        res.json({ task_id: task });
+        res.json(task);
     })
     .catch(err => {
         return res.status(500).json({error: {message: err, detail: 'createTask'}});

@@ -21,7 +21,7 @@ customerRouter
                 error: {message: 'Customer cannot be created'}
             });
         }
-        res.json({customer_id: customer});
+        res.json(customer);
     })
     .catch(err => {
         return res.status(500).json({error: {message: err, detail: 'createCustomer'}});

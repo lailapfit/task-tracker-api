@@ -28,7 +28,7 @@ const TaskService = {
         .where('tasks.project_id','=', projectId);
     },
     createTask(knex, data) {
-        return knex('tasks').returning('id').insert(data);
+        return knex('tasks').returning('*').insert(data);
     },
     updateTaskProjectByTaskId(knex, taskId, data) {
         return knex('tasks').where({ id: `${taskId}`}).update(data, ['id', 'description', 'project_id']);

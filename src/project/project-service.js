@@ -19,7 +19,7 @@ const ProjectService = {
         .where('projects.id', '=', id);
     },
     createProject(knex, data) {
-        return knex('projects').returning('id').insert(data);
+        return knex('projects').returning('*').insert(data);
     },
     updateProjectByName(knex, name, data) {
         return knex('projects').where({ name: `${name}`}).update(data, ['id', 'name']);
